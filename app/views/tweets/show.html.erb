@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Belng to:</b>
+  <%= @tweet.belng_to %>
+</p>
+
+<p>
+  <b>Tweet text:</b>
+  <%= @tweet.tweet_text %>
+</p>
+
+<p>
+  <b>Likes:</b>
+  <%= @tweet.likes %>
+</p>
+
+
+<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
+<%= link_to 'Back', tweets_path %>
