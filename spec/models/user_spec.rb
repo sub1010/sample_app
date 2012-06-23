@@ -78,19 +78,26 @@ describe User do
     it { should_not be_valid}
   end
   
+  describe "when the password is too short" do
+    before { @user.password = @user.password_confirmation = "a" * 5 }
+    it{ should_not be_valid }
+  end
+  
   describe "return value of the authenticate method" do
     before{ @user.save }
     let(:found_user){ User.find_by_email(@user.email) }
-  end
     
-    describe "when the password matches" do
+  describe "when the password matches" do
       it{should == found_user.authenticate(@user.password)}
     end
     
-    describe "when the password doesn't match" do
+  describe "when the password doesn't match" do
       let(:user_invalid_password){found_user.authenticate("invalid")}
       it { should_not == user_invalid_password }
       specify { user_for_invalid_password.should be_false }
       
     end
+    
+  end
+
 end
