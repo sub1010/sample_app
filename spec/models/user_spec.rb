@@ -11,10 +11,18 @@ describe User do
   it { should respond_to(:password_digest) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:password)} 
-  it { should respond_to(:remember_token)}
+  it { should respond_to(:remember_token
+  it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
   
   it { should be_valid }
+  it { should_not be_admin }
+  
+  describe "with admin attributes set to 'true'" do
+    before { @user.toggle!(:admin) }
+    
+    it { should be_admin}
+  end
 
   describe "when name is not present" do
     before { @user.name = " "}
@@ -88,16 +96,15 @@ describe User do
     before{ @user.save }
     let(:found_user){ User.find_by_email(@user.email) }
     
-  describe "when the password matches" do
+     describe "when the password matches" do
       it{should == found_user.authenticate(@user.password)}
-    end
+     end
     
-  describe "when the password doesn't match" do
+     describe "when the password doesn't match" do
       let(:user_invalid_password){found_user.authenticate("invalid")}
       it { should_not == user_invalid_password }
       specify { user_for_invalid_password.should be_false }
-      
-    end
+     end
     
   end
   
@@ -105,5 +112,7 @@ describe User do
     before { @user.save }
     its(:remember_token) { should_not be_blank}
   end
-
+  
+  
+    
 end
