@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Micropost do
+
   
   let(:user) { FactoryGirl.create(:user) }
   before do
@@ -18,4 +19,5 @@ describe Micropost do
     before { @micropost.user_id = nil }
     it { should_not be valid }
   end
+
 end

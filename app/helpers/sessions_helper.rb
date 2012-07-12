@@ -24,6 +24,15 @@ module SessionsHelper
     self.current_user = nil
     cookies.delete(:remember_token)     
   end
+  
+  
+   # Stores page request and redirects to the Sign In, if non-signed-in users try to access protected pages (Moved from the private section of the user controller so that the method can be used in the micropost controller as well)
+  def signed_in_user 
+    unless signed_in?
+    store_location
+    redirect_to signin_path, notice: "Please sign in." 
+    end
+  end
    
   
   #Redirects to the requested page of the non-signed-in user or to the default page, i.e. Profile Page
